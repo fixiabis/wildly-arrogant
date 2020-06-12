@@ -1,0 +1,128 @@
+header {
+    line-height: 50px;
+    font-size: 30px;
+    text-align: center;
+    height: 50px;
+    overflow: hidden;
+    background-color: #0d0d0d;
+}
+
+textarea {
+    font-size: 20px;
+    width: 90%;
+    max-width: 700px;
+    height: 100px;
+    background-color: #111111;
+    color: #dddddd;
+    display: block;
+    margin: 10px auto 0px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+}
+
+.choose {
+    margin: 5px auto;
+    padding: 0;
+}
+
+.choose li {
+    display: inline-block;
+    list-style: none;
+    background-color: #0d0d0d;
+    font-size: 16px;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="button"] {
+    display: block;
+    margin: 10px auto;
+    background-color: #111111;
+    color: #dddddd;
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.blink {
+    animation: blink 1s infinite linear;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+#loading {
+    background: inherit;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 100px;
+}
+
+#loading::after {
+    display: block;
+    content: "\\>ω</";
+    background: #222;
+    color: #eee;
+    font-size: 30px;
+    font-family: monospace;
+    text-align: center;
+    line-height: 90px;
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    border-radius: 90px;
+    animation: loading-face 2s infinite;
+}
+
+#loading::before {
+    display: block;
+    content: "";
+    background: #eee;
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transform-origin: top;
+    animation: loading-rotate 2s infinite;
+}
+
+@keyframes loading-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    20% {
+        transform: rotate(90deg);
+    }
+    30% {
+        transform: rotate(-90deg);
+    }
+    100% {
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes loading-face {
+    20% {
+        content: "\\0ω0\\"
+    }
+    30% {
+        content: "/0ω0/"
+    }
+}
