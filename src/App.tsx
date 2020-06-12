@@ -11,6 +11,7 @@ const App = () => {
   const [messageText, setMessageText] = useState("");
   const [messageImageUrl, setMessageImageUrl] = useState("");
   const [{ facebookPostId, isCreatingPost }, setPostState] = useState({ facebookPostId: "", isCreatingPost: false });
+  const setFacebookPostId = (facebookPostId: string) => setPostState({ facebookPostId, isCreatingPost });
   const setIsCreatingPost = (isCreatingPost: boolean) => setPostState({ facebookPostId, isCreatingPost });
   const messageThemeName = WildlyArrogant.themeNames[messageThemeIndex];
   const messageThemeColor = WildlyArrogant.themeColors[messageThemeIndex];
@@ -24,8 +25,12 @@ const App = () => {
     setMessageImageUrl(imageUrl);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     setIsCreatingPost(true);
+  };
+
+  const handleGoBack = () => {
+    setFacebookPostId("");
   };
 
   const chooseThemeColorStyle = {
@@ -94,15 +99,23 @@ const App = () => {
     };
 
     return (
-      <iframe
-        title="facebook 貼文"
-        src={`https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FWildly.Arrogant%2Fposts%2F${facebookPostId}%3A0&width=${width}`}
-        width={width}
-        height={width}
-        style={style}
-        scrolling="no"
-        frameBorder="0"
-        allowTransparency={true} />
+      <>
+        <header style={headerStyle}>{messageThemeName}</header>
+        <main>
+          <iframe
+            title="facebook 貼文"
+            src={`https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FWildly.Arrogant%2Fposts%2F${facebookPostId}%3A0&width=${width}`}
+            width={width}
+            height={width}
+            style={style}
+            scrolling="no"
+            frameBorder="0"
+            allowTransparency={true} />
+        </main>
+        <footer>
+          <input type="button" value="返回" onClick={handleGoBack} />
+        </footer>
+      </>
     );
   }
 
