@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "969cf544ff59544273858b68ecfce0c9",
+    "revision": "6e0de308d5e6b4168f0a4e4537a1b472",
     "url": "/wildly-arrogant/post/index.html"
   },
   {
-    "revision": "be56ea0d0324b3fdb718",
-    "url": "/wildly-arrogant/post/static/css/main.30713401.chunk.css"
+    "revision": "a2e19de4975baad44c39",
+    "url": "/wildly-arrogant/post/static/css/main.d4d41fb8.chunk.css"
   },
   {
     "revision": "1a1a85bdcde7eeecdff0",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/wildly-arrogant/post/static/js/2.3eb1c9ac.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "be56ea0d0324b3fdb718",
-    "url": "/wildly-arrogant/post/static/js/main.4ff09254.chunk.js"
+    "revision": "a2e19de4975baad44c39",
+    "url": "/wildly-arrogant/post/static/js/main.58221201.chunk.js"
   },
   {
     "revision": "353cc2229fe946f7b71b",

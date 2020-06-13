@@ -46,11 +46,20 @@ input[type="button"] {
     margin: 10px auto;
     background-color: #111111;
     color: #dddddd;
+    border-color: #ddd;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
     width: 80px;
     height: 40px;
-    border: none;
     border-radius: 5px;
     font-size: 20px;
+}
+
+footer a {
+    color: #888;
+    display: block;
+    margin: 10px;
 }
 
 .blink {

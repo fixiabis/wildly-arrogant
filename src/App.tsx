@@ -27,7 +27,9 @@ const App = () => {
   };
 
   const handleSubmit = () => {
-    setIsCreatingPost(true);
+    if (messageText) {
+      setIsCreatingPost(true);
+    }
   };
 
   const handleGoBack = () => {
@@ -174,6 +176,7 @@ const App = () => {
       </main>
       <footer>
         <input type="button" value="送出" onClick={handleSubmit} />
+        <a href="https://fb.me/wildly.arrogant" target="_blank" rel="noopener noreferrer">點此前往粉絲專業</a>
       </footer>
     </>
   );
