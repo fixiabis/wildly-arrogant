@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, RefObject } from "react";
 import Axios from "axios";
 import "./App.css";
 import { WildlyArrogant } from "./components";
@@ -8,14 +8,15 @@ const GOOGLE_MARCO_URL = "https://script.google.com/macros/s/AKfycbxf6RbMgUDvM82
 const App = () => {
   const [messageThemeType, setMessageThemeType] = useState<WildlyArrogant.ThemeType>(0);
   const [messageThemeIndex, setMessageThemeIndex] = useState(0);
-  const [messageText, setMessageText] = useState("");
   const [messageImageUrl, setMessageImageUrl] = useState("");
-  const [{ facebookPostId, isCreatingPost }, setPostState] = useState({ facebookPostId: "", isCreatingPost: false });
-  const setFacebookPostId = (facebookPostId: string) => setPostState({ facebookPostId, isCreatingPost });
-  const setIsCreatingPost = (isCreatingPost: boolean) => setPostState({ facebookPostId, isCreatingPost });
+  const [{ facebookPostId, isCreatingPost, messageText }, setPostState] = useState({ facebookPostId: "", isCreatingPost: false, messageText: "" });
+  const setIsCreatingPost = (isCreatingPost: boolean) => setPostState({ facebookPostId, isCreatingPost, messageText });
+  const setMessageText = (messageText: string) => setPostState({ facebookPostId, isCreatingPost, messageText });
   const messageThemeName = WildlyArrogant.themeNames[messageThemeIndex];
   const messageThemeColor = WildlyArrogant.themeColors[messageThemeIndex];
   const headerStyle = { color: messageThemeColor };
+  const chooseThemeColorRef = useRef<HTMLUListElement>() as RefObject<HTMLUListElement>;
+  const chooseThemeTypeRef = useRef<HTMLUListElement>() as RefObject<HTMLUListElement>;
 
   const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessageText(event.target.value);
@@ -30,16 +31,32 @@ const App = () => {
   };
 
   const handleGoBack = () => {
-    setFacebookPostId("");
+    setPostState({
+      facebookPostId: "",
+      isCreatingPost: false,
+      messageText: "",
+    });
   };
 
-  const chooseThemeColorStyle = {
-    maxWidth: WildlyArrogant.themeColors.length * 90,
+  const resizeByMeasurement = () => {
+    if (!chooseThemeColorRef.current || !chooseThemeTypeRef.current) {
+      return;
+    }
+
+    const chooseThemeColor = chooseThemeColorRef.current;
+    const chooseThemeType = chooseThemeTypeRef.current;
+    const { offsetWidth } = chooseThemeColor.parentNode as HTMLDivElement;
+    const countOfChooseOptionInOneRow = Math.floor(offsetWidth / 90);
+    const chooseWidth = countOfChooseOptionInOneRow * 90;
+    chooseThemeColor.style.width = `${Math.min(chooseWidth, 810)}px`;
+    chooseThemeType.style.width = `${Math.min(chooseWidth, 450)}px`;
   };
 
-  const chooseThemeTypeStyle = {
-    maxWidth: 5 * 90,
-  };
+  useEffect(() => {
+    window.addEventListener("resize", resizeByMeasurement);
+    resizeByMeasurement();
+    return () => window.removeEventListener("resize", resizeByMeasurement);
+  });
 
   useEffect(() => {
     if (!isCreatingPost) {
@@ -59,6 +76,7 @@ const App = () => {
         setPostState({
           facebookPostId: response.data.postId,
           isCreatingPost: false,
+          messageText,
         });
       }
       else if (response.data.message === "service unavailable") {
@@ -125,7 +143,7 @@ const App = () => {
       <main>
         <textarea value={messageText} placeholder="你最近最狂的事情是什麼?" onChange={handleTextareaChange} />
 
-        <ul id="choose-theme-color" className="choose" style={chooseThemeColorStyle}>
+        <ul id="choose-theme-color" ref={chooseThemeColorRef} className="choose">
           {WildlyArrogant.themeNames.map((themeName, themeIndex) => {
             const style = {
               color: WildlyArrogant.themeColors[themeIndex],
@@ -137,7 +155,7 @@ const App = () => {
           })}
         </ul>
 
-        <ul id="choose-theme-type" className="choose" style={chooseThemeTypeStyle}>
+        <ul id="choose-theme-type" ref={chooseThemeTypeRef} className="choose">
           {WildlyArrogant.ThemeTypeNames.map((themeTypeName, themeType) => {
             const style = {
               opacity: (themeType === messageThemeType) ? 1 : 0.4,
