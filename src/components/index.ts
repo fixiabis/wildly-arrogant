@@ -1,2 +1,2 @@
-import * as WildlyArrogant from "./WildlyArrogant";
+import * as WildlyArrogant from './WildlyArrogant';
 export { WildlyArrogant };

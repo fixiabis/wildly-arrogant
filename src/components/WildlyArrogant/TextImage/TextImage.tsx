@@ -1,6 +1,11 @@
-import React, { useRef, RefObject, useEffect } from "react";
-import { ThemeColor, ThemeType, themeColors, themeNames } from "../theme";
-import { TEXT_IMAGE_WIDTH, TEXT_IMAGE_HEIGHT, TextPainter, ThemeSetting } from "./utils";
+import React, { useRef, RefObject, useEffect } from 'react';
+import { ThemeColor, ThemeType, themeColors, themeNames } from '../theme';
+import {
+  TEXT_IMAGE_WIDTH,
+  TEXT_IMAGE_HEIGHT,
+  TextPainter,
+  ThemeSetting,
+} from './utils';
 
 export interface Props {
   text: string;
@@ -9,20 +14,25 @@ export interface Props {
   onRender?: (imageBase64Url: string) => void;
 }
 
-const TextImage: React.FunctionComponent<Props> = ({ text, themeType, themeColor, onRender }: Props) => {
+const TextImage: React.FunctionComponent<Props> = ({
+  text,
+  themeType,
+  themeColor,
+  onRender,
+}: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>() as RefObject<HTMLCanvasElement>;
   const imageRef = useRef<HTMLImageElement>() as RefObject<HTMLImageElement>;
   const themeNameIndex = themeColors.indexOf(themeColor);
   const themeName = themeNames[themeNameIndex];
 
   const canvasStyle = {
-    display: "none",
+    display: 'none',
   };
 
   const imageStyle = {
-    display: "block",
-    margin: "0 auto",
-    width: "95%",
+    display: 'block',
+    margin: '0 auto',
+    width: '95%',
     maxWidth: 500,
   };
 
@@ -33,7 +43,7 @@ const TextImage: React.FunctionComponent<Props> = ({ text, themeType, themeColor
 
     const canvas = canvasRef.current;
     const image = imageRef.current;
-    const canvasContext = canvas.getContext("2d");
+    const canvasContext = canvas.getContext('2d');
 
     if (!canvasContext) {
       return;
@@ -53,7 +63,12 @@ const TextImage: React.FunctionComponent<Props> = ({ text, themeType, themeColor
 
   return (
     <div>
-      <canvas ref={canvasRef} width={TEXT_IMAGE_WIDTH} height={TEXT_IMAGE_HEIGHT} style={canvasStyle}></canvas>
+      <canvas
+        ref={canvasRef}
+        width={TEXT_IMAGE_WIDTH}
+        height={TEXT_IMAGE_HEIGHT}
+        style={canvasStyle}
+      ></canvas>
       <img ref={imageRef} alt={text} style={imageStyle} />
     </div>
   );
