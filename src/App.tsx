@@ -87,15 +87,16 @@ const App = () => {
       formData.append('image', messageImageUrl);
 
       const response = await Axios.post(GOOGLE_MARCO_URL, formData);
+      const result = response.data;
 
-      if (response.data.status !== 'error') {
+      if (result.status !== 'error') {
         setPostState({
-          facebookPostId: response.data.postId,
+          facebookPostId: result.postId,
           isCreatingPost: false,
           messageText,
         });
-      } else if (response.data.message === 'service unavailable') {
-        const { timeRemains } = response.data;
+      } else if (result.message === 'service unavailable') {
+        const { timeRemains } = result;
         setTimeout(createPost, timeRemains);
       }
     };
